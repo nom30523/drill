@@ -12,10 +12,13 @@
   let loc = 0;
   let score = 0;
   let miss = 0;
+  const timeLimit = 3 * 1000;
 
   const target = document.getElementById('target');
   const scoreLabel = document.getElementById('score');
   const missLabel = document.getElementById('miss');
+  const timerLabel = document.getElementById('timer');
+  let startTime;
 
 
   function updateTarget() {
@@ -26,8 +29,27 @@
     target.textContent = placeholder + word.substring(loc);
   }
 
+  function updateTimer() {
+    const timeLeft = startTime + timeLimit - Date.now();
+    timerLabel.textContent = (timeLeft / 1000).toFixed(2);
+
+    const timeoutId = setTimeout(() => {
+      updateTimer();
+    }, 10);
+
+    if (timeLeft < 0) {
+      clearTimeout(timeoutId);
+      timerLabel.textContent = '0.00';
+      setTimeout(() => {
+        alert('Game Over');
+      }, 100);
+    }
+  }
+
   window.addEventListener('click', () => {
     target.textContent = word;
+    startTime = Date.now();
+    updateTimer();
   });
 
   window.addEventListener('keydown', e => {
