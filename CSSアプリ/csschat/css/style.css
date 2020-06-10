@@ -16,3 +16,21 @@ body {
 .messages li {
   display: flex;
 }
+
+.messages li + li {
+  margin-top: 32px;
+}
+
+.pic img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.text {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 16px 24px;
+  max-width: 60%;
+  line-height: 1.8;
+}
